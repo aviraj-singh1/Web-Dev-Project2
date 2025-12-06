@@ -421,17 +421,43 @@ body {
 }
 
 .modal-footer {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
   padding-bottom: 0.5rem;
 }
 
-.modal-footer small {
+.modal-footer .create-hint {
   color: var(--text-secondary);
   font-size: 0.85rem;
   background: #f1f5f9;
   padding: 0.5rem 1rem;
   border-radius: 20px;
   display: inline-block;
+}
+
+.create-btn {
+  border: none;
+  outline: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #4ade80, #22c55e);
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow-light);
+  transition: var(--transition);
+}
+
+.create-btn:hover {
+  box-shadow: var(--shadow-medium);
+  transform: translateY(-1px);
+}
+
+.create-btn:active {
+  transform: translateY(0);
 }
 
 kbd {

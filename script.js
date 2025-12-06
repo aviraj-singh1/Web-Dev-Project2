@@ -8,6 +8,9 @@ const filterColors = document.querySelectorAll(".color");
 
 const colors = ["lightpink", "lightgreen", "lightblue", "black"];
 
+const createBtn = document.querySelector(".create-btn");
+
+
 let deleteMode = false;
 let activeFilterColor = null;
 let ticketsArr = [];
@@ -137,29 +140,40 @@ function generateTicket(task, id, color) {
   handleLock(ticketCont, id);
 }
 
+function createTicketFromModal() {
+  const taskFromModal = modalTaskArea.value.trim();
+  if (taskFromModal === "") return;
+
+  const id = shortid();
+  const color = ticketColor;
+
+  generateTicket(taskFromModal, id, color);
+
+  modalCont.style.display = "none";
+  modalFlag = false;
+  modalTaskArea.value = "";
+
+  ticketsArr.push({
+    ticketId: id,
+    ticketTask: taskFromModal,
+    ticketColor: color,
+  });
+
+  localStorage.setItem("myTickets", JSON.stringify(ticketsArr));
+}
+
 modalCont.addEventListener("keydown", function (e) {
   if (e.key === "Shift") {
-    const taskFromModal = modalTaskArea.value.trim();
-    if (taskFromModal === "") return;
-
-    const id = shortid();
-    const color = ticketColor;
-
-    generateTicket(taskFromModal, id, color);
-
-    modalCont.style.display = "none";
-    modalFlag = false;
-    modalTaskArea.value = "";
-
-    ticketsArr.push({
-      ticketId: id,
-      ticketTask: taskFromModal,
-      ticketColor: color
-    });
-
-    localStorage.setItem("myTickets", JSON.stringify(ticketsArr));
+    createTicketFromModal();
   }
 });
+
+if (createBtn) {
+  createBtn.addEventListener("click", function () {
+    createTicketFromModal();
+  });
+}
+
 
 allPriorityColors.forEach(function (colorItem) {
   colorItem.addEventListener("click", function () {
